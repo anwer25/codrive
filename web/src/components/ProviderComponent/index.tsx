@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from "react";
+import { NextUIProvider } from "@nextui-org/react";
 
 export const ProviderComponent: FC<PropsWithChildren> = ({ children }) => {
-  return <div>{children}</div>;
+  return <NextUIProvider>{children}</NextUIProvider>;
 };
