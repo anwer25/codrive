@@ -24,7 +24,10 @@ export const Home: FC = (): JSX.Element => {
     <>
       <NavBarComponent />
       <HomeHeaderSection />
-      <SectionWithTitle title="Pourquoi faire du covoiturage ?">
+      <SectionWithTitle
+        title="Pourquoi faire du covoiturage ?"
+        titleSize="large"
+      >
         <PourquoifaireCardContainer />
         <div className="flex flex-col items-center justify-center mt-11">
           <Button
