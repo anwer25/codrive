@@ -1,10 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
+
 import { CarouselCard } from "@/components/CarouselCard";
 import { CarouselContainer } from "@/components/CarouselContainer";
-import { Footer } from "@/components/Footer";
 import { HomeHeaderSection } from "@/components/HomeHeaderSection";
-import { ModalComponent } from "@/components/ModalComponent";
-
-import { NavBarComponent } from "@/components/NavBarComponent";
 import { PourquoifaireCardContainer } from "@/components/PourquoifaireCardContainer";
 import { SectionWithTitle } from "@/components/SectionsWithTitle";
 import {
@@ -15,14 +13,14 @@ import {
   CardHeader,
   Divider,
 } from "@nextui-org/react";
+import { Link } from "@tanstack/react-router";
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 
-export const Home: FC = (): JSX.Element => {
+const Home: FC = (): JSX.Element => {
+  const isLogIn = false;
   return (
-    <>
-      <NavBarComponent />
+    <main className="col-span-12">
       <HomeHeaderSection />
       <SectionWithTitle
         title="Pourquoi faire du covoiturage ?"
@@ -47,9 +45,15 @@ export const Home: FC = (): JSX.Element => {
             <CardHeader className="flex gap-3">
               <Card className="bg-black bg-opacity-25  px-10">
                 <CardHeader>
-                  <Link className="text-background" to={""}>
-                    User1
-                  </Link>
+                  {isLogIn ? (
+                    <Link className="text-background" to={""}>
+                      User1
+                    </Link>
+                  ) : (
+                    <Link className="text-background" to={"/login"}>
+                      User1
+                    </Link>
+                  )}
                 </CardHeader>
                 <Divider />
                 <CardBody>
@@ -63,9 +67,15 @@ export const Home: FC = (): JSX.Element => {
             <CardHeader className="flex gap-3">
               <Card className="bg-black bg-opacity-25  px-10">
                 <CardHeader>
-                  <Link className="text-background" to={""}>
-                    User1
-                  </Link>
+                  {isLogIn ? (
+                    <Link className="text-background" to={""}>
+                      User1
+                    </Link>
+                  ) : (
+                    <Link className="text-background" to={"/login"}>
+                      User1
+                    </Link>
+                  )}
                 </CardHeader>
                 <Divider />
                 <CardBody>
@@ -79,9 +89,15 @@ export const Home: FC = (): JSX.Element => {
             <CardHeader className="flex gap-3">
               <Card className="bg-black bg-opacity-25  px-10">
                 <CardHeader>
-                  <Link className="text-background" to={""}>
-                    User1
-                  </Link>
+                  {isLogIn ? (
+                    <Link className="text-background" to={""}>
+                      User1
+                    </Link>
+                  ) : (
+                    <Link className="text-background" to={"/login"}>
+                      User1
+                    </Link>
+                  )}
                 </CardHeader>
                 <Divider />
                 <CardBody>
@@ -98,7 +114,7 @@ export const Home: FC = (): JSX.Element => {
             variant="bordered"
             className="bg-blue-600 text-background"
             as={Link}
-            to={"/users"}
+            to={`${isLogIn ? "" : "/login"}`}
           >
             Voir plus d'inscrits
           </Button>
@@ -125,13 +141,10 @@ export const Home: FC = (): JSX.Element => {
           </p>
         </div>
       </SectionWithTitle>
-      <Footer></Footer>
-      <ModalComponent
-        onPrimaryButtonPress={() => console.log("hello")}
-        onSecondaryButtonPress={() => console.log("hello")}
-        primaryButtonLabel="Submit"
-        secondaryButtonLabel="Cancel"
-      ></ModalComponent>
-    </>
+    </main>
   );
 };
+
+export const Route = createFileRoute("/_layout/")({
+  component: Home,
+});

@@ -8,7 +8,7 @@ export const CarouselCard: FC<PropsWithChildren> = ({
     <Card
       isFooterBlurred
       radius="lg"
-      className="border-none bg-[url('https://www.trajetalacarte.com/img/background.jpg')] bg-center bg-cover"
+      className="border-none bg-[url('https://www.trajetalacarte.com/img/background.jpg')] bg-center bg-cover h-60"
     >
       {children}
     </Card>

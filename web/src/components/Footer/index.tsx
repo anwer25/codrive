@@ -1,10 +1,9 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Link } from "@nextui-org/react";
 import { FC } from "react";
-import { Link } from "react-router-dom";
 
 export const Footer: FC = (): JSX.Element => {
   return (
-    <footer className="text-background bg-blue-600 mt-10">
+    <footer className="col-span-12 text-background bg-blue-600 mt-10">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap md:text-left text-center order-first">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
@@ -74,7 +73,7 @@ export const Footer: FC = (): JSX.Element => {
                 ></Input>
               </div>
               <Button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Button
+                SubScribe
               </Button>
             </div>
             <p className="text-background text-sm mt-2 md:text-left text-center">
