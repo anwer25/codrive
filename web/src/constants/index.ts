@@ -10,22 +10,22 @@ export const PUBLIC_ROUTES = ["/auth/login", "/auth/register"];
 
 export const sideBarLink: ISideBarLink[] = [
   {
-    name: "Home",
+    name: "Accueil",
     path: "/dashboard",
     icon: Home,
   },
   {
-    name: "Profile",
+    name: "Profil",
     path: "/dashboard/profile",
     icon: User,
   },
   {
-    name: "History",
+    name: "Histoire",
     path: "/dashboard/history",
     icon: History,
   },
   {
-    name: "reservations",
+    name: "Réservations",
     path: "/dashboard/reservation",
     icon: PhoneIncoming,
   },

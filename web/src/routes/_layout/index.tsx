@@ -5,19 +5,23 @@ import { CarouselContainer } from "@/components/CarouselContainer";
 import { HomeHeaderSection } from "@/components/HomeHeaderSection";
 import { PourquoifaireCardContainer } from "@/components/PourquoifaireCardContainer";
 import { SectionWithTitle } from "@/components/SectionsWithTitle";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider,
-} from "@nextui-org/react";
+import { Button, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import { Link } from "@tanstack/react-router";
 
 import { FC } from "react";
+import { queryOptions, useSuspenseQueries } from "@tanstack/react-query";
+import { client } from "@/services/client";
+import { rideItemResponse } from "@/services/types";
+import { queryClient } from "@/constants";
+
+const ridesQueryOptions = queryOptions({
+  queryKey: ["rides"],
+  queryFn: () => client.ride.get(),
+});
 
 const Home: FC = (): JSX.Element => {
+  const result = useSuspenseQueries({ queries: [ridesQueryOptions] });
+  const data = result[0].data as rideItemResponse;
   const isLogIn = false;
   return (
     <main className="col-span-12">
@@ -33,7 +37,7 @@ const Home: FC = (): JSX.Element => {
             variant="bordered"
             className="bg-blue-600 text-background"
             as={Link}
-            to={"/register"}
+            to={"/signup"}
           >
             Inscrivez-vous, c'est gratuit !
           </Button>
@@ -41,72 +45,37 @@ const Home: FC = (): JSX.Element => {
       </SectionWithTitle>
       <SectionWithTitle title="Les derniers inscrits" className="w-full">
         <CarouselContainer>
-          <CarouselCard>
-            <CardHeader className="flex gap-3">
-              <Card className="bg-black bg-opacity-25  px-10">
-                <CardHeader>
-                  {isLogIn ? (
-                    <Link className="text-background" to={""}>
-                      User1
-                    </Link>
-                  ) : (
-                    <Link className="text-background" to={"/login"}>
-                      User1
-                    </Link>
-                  )}
-                </CardHeader>
-                <Divider />
-                <CardBody>
-                  <p className="text-background">Recherche un trajet </p>
-                </CardBody>
-                <CardFooter></CardFooter>
-              </Card>
-            </CardHeader>
-          </CarouselCard>
-          <CarouselCard>
-            <CardHeader className="flex gap-3">
-              <Card className="bg-black bg-opacity-25  px-10">
-                <CardHeader>
-                  {isLogIn ? (
-                    <Link className="text-background" to={""}>
-                      User1
-                    </Link>
-                  ) : (
-                    <Link className="text-background" to={"/login"}>
-                      User1
-                    </Link>
-                  )}
-                </CardHeader>
-                <Divider />
-                <CardBody>
-                  <p className="text-background">Recherche un trajet </p>
-                </CardBody>
-                <CardFooter></CardFooter>
-              </Card>
-            </CardHeader>
-          </CarouselCard>
-          <CarouselCard>
-            <CardHeader className="flex gap-3">
-              <Card className="bg-black bg-opacity-25  px-10">
-                <CardHeader>
-                  {isLogIn ? (
-                    <Link className="text-background" to={""}>
-                      User1
-                    </Link>
-                  ) : (
-                    <Link className="text-background" to={"/login"}>
-                      User1
-                    </Link>
-                  )}
-                </CardHeader>
-                <Divider />
-                <CardBody>
-                  <p className="text-background">Recherche un trajet </p>
-                </CardBody>
-                <CardFooter></CardFooter>
-              </Card>
-            </CardHeader>
-          </CarouselCard>
+          {data
+            .slice(0, 4)
+            .map(
+              (
+                {
+                  endDate,
+                  from,
+                  name,
+                  places,
+                  price,
+                  rideId,
+                  startDate,
+                  to,
+                  userId,
+                },
+                index,
+              ) => (
+                <CarouselCard
+                  endDate={endDate}
+                  from={from}
+                  name={name}
+                  places={places}
+                  price={price}
+                  rideId={rideId}
+                  startDate={startDate}
+                  to={to}
+                  userId={userId}
+                  key={`carousel-item-${index}`}
+                ></CarouselCard>
+              ),
+            )}
         </CarouselContainer>
         <div className="flex flex-col items-center justify-center mt-11">
           <Button
@@ -147,4 +116,5 @@ const Home: FC = (): JSX.Element => {
 
 export const Route = createFileRoute("/_layout/")({
   component: Home,
+  loader: () => queryClient.ensureQueryData(ridesQueryOptions),
 });

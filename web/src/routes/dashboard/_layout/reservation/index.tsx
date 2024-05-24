@@ -1,21 +1,20 @@
 import { RideItemCard } from "@/components/RideItemCard";
+import { queryClient } from "@/constants";
 import { client } from "@/services/client";
 import { rideItemResponse } from "@/services/types";
-import { Card, CardBody, Input, Button } from "@nextui-org/react";
+import { Button, Card, CardBody, Input } from "@nextui-org/react";
 import { queryOptions, useSuspenseQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { FC } from "react";
 
-const ridesQueryOptions = queryOptions({
-  queryKey: ["rides"],
-  queryFn: () => client.ride.get(),
+const reservations = queryOptions({
+  queryKey: ["reservations"],
+  queryFn: () => client.reservation.get(),
 });
-
-const History: FC = (): JSX.Element => {
-  const result = useSuspenseQueries({ queries: [ridesQueryOptions] });
+const Reservations: FC = () => {
+  const result = useSuspenseQueries({ queries: [reservations] });
   const data = result[0].data as rideItemResponse;
-
   return (
     <>
       <Card className="mt-4 mx-2">
@@ -65,13 +64,23 @@ const History: FC = (): JSX.Element => {
             rideId={ride.rideId}
             name={ride.name}
             key={index}
-          ></RideItemCard>
+          >
+            <Button className="bg-red-600 text-background">
+              <span>Cancel</span>
+            </Button>
+            <Button className="bg-green-600 text-background">
+              <span>Confirm</span>
+            </Button>
+          </RideItemCard>
         ))}
       </div>
     </>
   );
 };
 
-export const Route = createFileRoute("/_layout/dashboard/_layout/history/")({
-  component: History,
-});
+export const Route = createFileRoute("/dashboard/_layout/reservation/")(
+  {
+    component: Reservations,
+    loader: () => queryClient.ensureQueryData(reservations),
+  },
+);

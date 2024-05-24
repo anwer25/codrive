@@ -10,11 +10,8 @@ export const HomeHeaderSection: FC<PropsWithChildren> = ({
         {!children ? (
           <>
             <h1 className="text-4xl font-bold text-center text-white">
-              Welcome to Co-drive
+              Bienvenue chez Co-drive
             </h1>
-            <p className="text-lg text-center text-white">
-              The best place to find the perfect product for you
-            </p>
           </>
         ) : (
           children

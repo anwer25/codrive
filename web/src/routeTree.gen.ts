@@ -15,34 +15,44 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as DashboardLayoutImport } from './routes/dashboard/_layout'
+import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
 import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
-import { Route as LayoutDashboardLayoutImport } from './routes/_layout/dashboard/_layout'
-import { Route as LayoutDashboardLayoutIndexImport } from './routes/_layout/dashboard/_layout/index'
-import { Route as LayoutDashboardLayoutReservationIndexImport } from './routes/_layout/dashboard/_layout/reservation/index'
-import { Route as LayoutDashboardLayoutProfileIndexImport } from './routes/_layout/dashboard/_layout/profile/index'
-import { Route as LayoutDashboardLayoutHistoryIndexImport } from './routes/_layout/dashboard/_layout/history/index'
-import { Route as LayoutDashboardLayoutProfileIdIndexImport } from './routes/_layout/dashboard/_layout/profile/$id/index'
+import { Route as DashboardLayoutReservationIndexImport } from './routes/dashboard/_layout/reservation/index'
+import { Route as DashboardLayoutProfileIndexImport } from './routes/dashboard/_layout/profile/index'
+import { Route as DashboardLayoutHistoryIndexImport } from './routes/dashboard/_layout/history/index'
+import { Route as DashboardLayoutProfileIdIndexImport } from './routes/dashboard/_layout/profile/$id/index'
 
 // Create Virtual Routes
 
-const LayoutDashboardImport = createFileRoute('/_layout/dashboard')()
+const DashboardImport = createFileRoute('/dashboard')()
 
 // Create/Update Routes
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutDashboardRoute = LayoutDashboardImport.update({
-  path: '/dashboard',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
+} as any)
+
+const DashboardLayoutRoute = DashboardLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardLayoutIndexRoute = DashboardLayoutIndexImport.update({
+  path: '/',
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
 
 const LayoutSignupIndexRoute = LayoutSignupIndexImport.update({
@@ -55,40 +65,28 @@ const LayoutLoginIndexRoute = LayoutLoginIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutDashboardLayoutRoute = LayoutDashboardLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => LayoutDashboardRoute,
-} as any)
-
-const LayoutDashboardLayoutIndexRoute = LayoutDashboardLayoutIndexImport.update(
-  {
-    path: '/',
-    getParentRoute: () => LayoutDashboardLayoutRoute,
-  } as any,
-)
-
-const LayoutDashboardLayoutReservationIndexRoute =
-  LayoutDashboardLayoutReservationIndexImport.update({
+const DashboardLayoutReservationIndexRoute =
+  DashboardLayoutReservationIndexImport.update({
     path: '/reservation/',
-    getParentRoute: () => LayoutDashboardLayoutRoute,
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
-const LayoutDashboardLayoutProfileIndexRoute =
-  LayoutDashboardLayoutProfileIndexImport.update({
+const DashboardLayoutProfileIndexRoute =
+  DashboardLayoutProfileIndexImport.update({
     path: '/profile/',
-    getParentRoute: () => LayoutDashboardLayoutRoute,
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
-const LayoutDashboardLayoutHistoryIndexRoute =
-  LayoutDashboardLayoutHistoryIndexImport.update({
+const DashboardLayoutHistoryIndexRoute =
+  DashboardLayoutHistoryIndexImport.update({
     path: '/history/',
-    getParentRoute: () => LayoutDashboardLayoutRoute,
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
-const LayoutDashboardLayoutProfileIdIndexRoute =
-  LayoutDashboardLayoutProfileIdIndexImport.update({
+const DashboardLayoutProfileIdIndexRoute =
+  DashboardLayoutProfileIdIndexImport.update({
     path: '/profile/$id/',
-    getParentRoute: () => LayoutDashboardLayoutRoute,
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -102,26 +100,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard/_layout': {
+      id: '/dashboard/_layout'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardLayoutImport
+      parentRoute: typeof DashboardRoute
+    }
     '/_layout/': {
       id: '/_layout/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
-    }
-    '/_layout/dashboard': {
-      id: '/_layout/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof LayoutDashboardImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/dashboard/_layout': {
-      id: '/_layout/dashboard/_layout'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof LayoutDashboardLayoutImport
-      parentRoute: typeof LayoutDashboardRoute
     }
     '/_layout/login/': {
       id: '/_layout/login/'
@@ -137,40 +135,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSignupIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/dashboard/_layout/': {
-      id: '/_layout/dashboard/_layout/'
+    '/dashboard/_layout/': {
+      id: '/dashboard/_layout/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof LayoutDashboardLayoutIndexImport
-      parentRoute: typeof LayoutDashboardLayoutImport
+      preLoaderRoute: typeof DashboardLayoutIndexImport
+      parentRoute: typeof DashboardLayoutImport
     }
-    '/_layout/dashboard/_layout/history/': {
-      id: '/_layout/dashboard/_layout/history/'
+    '/dashboard/_layout/history/': {
+      id: '/dashboard/_layout/history/'
       path: '/history'
       fullPath: '/dashboard/history'
-      preLoaderRoute: typeof LayoutDashboardLayoutHistoryIndexImport
-      parentRoute: typeof LayoutDashboardLayoutImport
+      preLoaderRoute: typeof DashboardLayoutHistoryIndexImport
+      parentRoute: typeof DashboardLayoutImport
     }
-    '/_layout/dashboard/_layout/profile/': {
-      id: '/_layout/dashboard/_layout/profile/'
+    '/dashboard/_layout/profile/': {
+      id: '/dashboard/_layout/profile/'
       path: '/profile'
       fullPath: '/dashboard/profile'
-      preLoaderRoute: typeof LayoutDashboardLayoutProfileIndexImport
-      parentRoute: typeof LayoutDashboardLayoutImport
+      preLoaderRoute: typeof DashboardLayoutProfileIndexImport
+      parentRoute: typeof DashboardLayoutImport
     }
-    '/_layout/dashboard/_layout/reservation/': {
-      id: '/_layout/dashboard/_layout/reservation/'
+    '/dashboard/_layout/reservation/': {
+      id: '/dashboard/_layout/reservation/'
       path: '/reservation'
       fullPath: '/dashboard/reservation'
-      preLoaderRoute: typeof LayoutDashboardLayoutReservationIndexImport
-      parentRoute: typeof LayoutDashboardLayoutImport
+      preLoaderRoute: typeof DashboardLayoutReservationIndexImport
+      parentRoute: typeof DashboardLayoutImport
     }
-    '/_layout/dashboard/_layout/profile/$id/': {
-      id: '/_layout/dashboard/_layout/profile/$id/'
+    '/dashboard/_layout/profile/$id/': {
+      id: '/dashboard/_layout/profile/$id/'
       path: '/profile/$id'
       fullPath: '/dashboard/profile/$id'
-      preLoaderRoute: typeof LayoutDashboardLayoutProfileIdIndexImport
-      parentRoute: typeof LayoutDashboardLayoutImport
+      preLoaderRoute: typeof DashboardLayoutProfileIdIndexImport
+      parentRoute: typeof DashboardLayoutImport
     }
   }
 }
@@ -180,17 +178,17 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutIndexRoute,
-    LayoutDashboardRoute: LayoutDashboardRoute.addChildren({
-      LayoutDashboardLayoutRoute: LayoutDashboardLayoutRoute.addChildren({
-        LayoutDashboardLayoutIndexRoute,
-        LayoutDashboardLayoutHistoryIndexRoute,
-        LayoutDashboardLayoutProfileIndexRoute,
-        LayoutDashboardLayoutReservationIndexRoute,
-        LayoutDashboardLayoutProfileIdIndexRoute,
-      }),
-    }),
     LayoutLoginIndexRoute,
     LayoutSignupIndexRoute,
+  }),
+  DashboardRoute: DashboardRoute.addChildren({
+    DashboardLayoutRoute: DashboardLayoutRoute.addChildren({
+      DashboardLayoutIndexRoute,
+      DashboardLayoutHistoryIndexRoute,
+      DashboardLayoutProfileIndexRoute,
+      DashboardLayoutReservationIndexRoute,
+      DashboardLayoutProfileIdIndexRoute,
+    }),
   }),
 })
 

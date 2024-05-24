@@ -22,8 +22,10 @@ export interface IRider {
   lastName: string;
   email: string;
   phoneNumber: string;
+  address: string;
 }
 
 export type rideItemResponse = IRideItem[];
 export type reservationResponse = IRideItem[];
 export type riderResponse = IRider[];
+export type profileResponse = IRider;

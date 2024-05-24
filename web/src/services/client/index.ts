@@ -5,4 +5,5 @@ export const client = {
   auth: new AuthApi(),
   ride: new BaseApi("ride"),
   reservation: new BaseApi("reservation"),
+  profile: new BaseApi("profile"),
 };

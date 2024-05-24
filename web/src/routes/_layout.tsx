@@ -1,6 +1,5 @@
 import { Footer } from "@/components/Footer";
 import { NavBarComponent } from "@/components/NavBarComponent";
-import { AsideComponent } from "@/components/aside";
 import {
   Outlet,
   createFileRoute,
@@ -10,17 +9,13 @@ import { FC } from "react";
 
 const GlobalLayout: FC = () => {
   const router = useRouterState();
-  const isAuthPage =
-    router.location.pathname.includes("/login") ||
-    router.location.pathname.includes("/signup");
-  const isDashboardPage = router.location.pathname.includes("/dashboard");
+  const isAuthPage = ["/login", "/signup"].includes(router.location.pathname);
   return (
     <div className="grid grid-cols-12 h-screen gap-2">
-      {isAuthPage || !isDashboardPage ? <NavBarComponent /> : null}
-      {isDashboardPage && <AsideComponent />}
+      <NavBarComponent />
 
       <Outlet />
-      {isAuthPage || !isDashboardPage ? <Footer /> : null}
+      {!isAuthPage && <Footer />}
     </div>
   );
 };

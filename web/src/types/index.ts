@@ -1,4 +1,4 @@
-import { IRideItem } from "@/services/types";
+import { IRideItem, profileResponse } from "@/services/types";
 import { QueryClient } from "@tanstack/react-query";
 import { FileRoutesByPath } from "@tanstack/react-router";
 import { LucideProps } from "lucide-react";
@@ -27,3 +27,7 @@ export interface ISideBarLink {
 }
 
 export interface IRideItemCardProps extends PropsWithChildren, IRideItem {}
+export interface ICarouselCardProps extends IRideItemCardProps {}
+export interface IProfileDetailsCardProps
+  extends PropsWithChildren,
+    profileResponse {}

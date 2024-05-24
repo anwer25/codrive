@@ -27,11 +27,11 @@ export class AuthApi {
     return { accessToken, refreshToken };
   }
 
-  async login(payload: { serialNumber: string; password: string }) {
+  async login(payload: { email: string; password: string }) {
     try {
       const { data }: AxiosResponse<IAuthResponse> = await this.axios.post(
         "auth/login/",
-        { username: payload.serialNumber, password: payload.password },
+        { username: payload.email, password: payload.password },
       );
 
       this.setLocalStorageData(data);

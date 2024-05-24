@@ -63,7 +63,7 @@ export const AsideComponent: FC = () => {
 
         <Button className=" bg-orange-600 w-full text-background">
           <LogOut />
-          <span className="ms-2">Logout</span>
+          <span className="ms-2">Se déconnecter</span>
         </Button>
       </div>
     </aside>

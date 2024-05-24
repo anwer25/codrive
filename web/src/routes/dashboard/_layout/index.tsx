@@ -28,27 +28,27 @@ const DashBoard: FC = (): JSX.Element => {
       <Card className="mt-4 mx-2">
         <CardBody className="flex justify-between flex-row items-center">
           <Input
-            placeholder="from"
+            placeholder="depuis"
             labelPlacement="outside"
             startContent={
               <span className="  flex flex-col items-center justify-between">
-                from
+                depuis:
               </span>
             }
             className="basis-56"
           ></Input>
           <Input
-            placeholder="to"
+            placeholder="À"
             labelPlacement="outside"
             startContent={
               <span className="  flex flex-col items-center justify-between">
-                to
+                À:
               </span>
             }
             className="basis-56"
           ></Input>
           <Input
-            placeholder="to"
+            placeholder="À"
             labelPlacement="outside"
             type="date"
             className="basis-56"
@@ -70,36 +70,32 @@ const DashBoard: FC = (): JSX.Element => {
               </SheetHeader>
               <ScrollShadow className="flex flex-col  space-y-4 basis-4/5">
                 <Input
-                  placeholder="from"
+                  placeholder="depuis"
                   labelPlacement="outside"
                   startContent={
                     <span className="  flex flex-col items-center justify-between">
-                      from
+                      depuis
                     </span>
                   }
                 ></Input>
                 <Input
-                  placeholder="to"
+                  placeholder="à"
                   labelPlacement="outside"
                   startContent={
                     <span className="  flex flex-col items-center justify-between">
-                      to
+                      à
                     </span>
                   }
                 ></Input>
+                <Input labelPlacement="outside" type="date"></Input>
                 <Input
-                  placeholder="to"
-                  labelPlacement="outside"
-                  type="date"
-                ></Input>
-                <Input
-                  placeholder="price"
+                  placeholder="prix"
                   labelPlacement="outside"
                   type="number"
                   startContent={<Euro></Euro>}
                 ></Input>
                 <Input
-                  placeholder="places"
+                  placeholder="lieux"
                   labelPlacement="outside"
                   type="number"
                   startContent={<Users></Users>}
@@ -137,7 +133,7 @@ const DashBoard: FC = (): JSX.Element => {
     </>
   );
 };
-export const Route = createFileRoute("/_layout/dashboard/_layout/")({
+export const Route = createFileRoute("/dashboard/_layout/")({
   component: DashBoard,
   loader: () => queryClient.ensureQueryData(ridesQueryOptions),
 });

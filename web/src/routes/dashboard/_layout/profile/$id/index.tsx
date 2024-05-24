@@ -31,7 +31,7 @@ const Profile: FC = (): JSX.Element => {
   );
 };
 
-export const Route = createFileRoute("/_layout/dashboard/_layout/profile/$id/")(
+export const Route = createFileRoute("/dashboard/_layout/profile/$id/")(
   {
     component: Profile,
   },

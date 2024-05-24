@@ -1,20 +1,21 @@
 import { RideItemCard } from "@/components/RideItemCard";
-import { queryClient } from "@/constants";
 import { client } from "@/services/client";
 import { rideItemResponse } from "@/services/types";
-import { Button, Card, CardBody, Input } from "@nextui-org/react";
+import { Card, CardBody, Input, Button } from "@nextui-org/react";
 import { queryOptions, useSuspenseQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { FC } from "react";
 
-const reservations = queryOptions({
-  queryKey: ["reservations"],
-  queryFn: () => client.reservation.get(),
+const ridesQueryOptions = queryOptions({
+  queryKey: ["rides"],
+  queryFn: () => client.ride.get(),
 });
-const Reservations: FC = () => {
-  const result = useSuspenseQueries({ queries: [reservations] });
+
+const History: FC = (): JSX.Element => {
+  const result = useSuspenseQueries({ queries: [ridesQueryOptions] });
   const data = result[0].data as rideItemResponse;
+
   return (
     <>
       <Card className="mt-4 mx-2">
@@ -52,35 +53,28 @@ const Reservations: FC = () => {
         </CardBody>
       </Card>
       <div className="grid grid-cols-12 mx-2 mt-2 space-y-5">
-        {data.map((ride, index) => (
-          <RideItemCard
-            endDate={ride.endDate}
-            from={ride.from}
-            places={ride.places}
-            price={ride.price}
-            startDate={ride.startDate}
-            to={ride.to}
-            userId={ride.userId}
-            rideId={ride.rideId}
-            name={ride.name}
-            key={index}
-          >
-            <Button className="bg-red-600 text-background">
-              <span>Cancel</span>
-            </Button>
-            <Button className="bg-green-600 text-background">
-              <span>Confirm</span>
-            </Button>
-          </RideItemCard>
-        ))}
+        {/**delete filter  -- filter just for demo */}
+        {data
+          .filter((item) => item.name === "Ahmed")
+          .map((ride, index) => (
+            <RideItemCard
+              endDate={ride.endDate}
+              from={ride.from}
+              places={ride.places}
+              price={ride.price}
+              startDate={ride.startDate}
+              to={ride.to}
+              userId={ride.userId}
+              rideId={ride.rideId}
+              name={ride.name}
+              key={index}
+            ></RideItemCard>
+          ))}
       </div>
     </>
   );
 };
 
-export const Route = createFileRoute("/_layout/dashboard/_layout/reservation/")(
-  {
-    component: Reservations,
-    loader: () => queryClient.ensureQueryData(reservations),
-  },
-);
+export const Route = createFileRoute("/dashboard/_layout/history/")({
+  component: History,
+});
